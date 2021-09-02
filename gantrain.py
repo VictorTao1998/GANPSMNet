@@ -101,17 +101,17 @@ if args.cuda:
 
 #all_left_img, all_right_img, all_left_disp, test_left_img, test_right_img, test_left_disp = lt.dataloader(args.datapath)
 
-train_dataset = MESSYDataset(args.datapath, args.trainlist, True,
+train_dataset = MESSYDataset(args.datapath, args.depthpath, args.trainlist, True,
                               crop_height=args.crop_height, crop_width=args.crop_width,
                               test_crop_height=args.test_crop_height, test_crop_width=args.test_crop_width,
                               left_img="0128_irL_denoised_half.png", right_img="0128_irR_denoised_half.png", args=args)
 
-test_dataset = MESSYDataset(args.test_datapath, args.testlist, False,
+test_dataset = MESSYDataset(args.test_datapath, args.depthpath, args.testlist, False,
                              crop_height=args.crop_height, crop_width=args.crop_width,
                              test_crop_height=args.test_crop_height, test_crop_width=args.test_crop_width,
                              left_img="0128_irL_denoised_half.png", right_img="0128_irR_denoised_half.png", args=args)
 
-test_real_dataset = MESSYDataset(args.test_real_datapath, args.real_testlist, True,
+test_real_dataset = MESSYDataset(args.test_real_datapath, args.depthpath, args.real_testlist, True,
                              crop_height=args.crop_height, crop_width=args.crop_width,
                              test_crop_height=args.test_crop_height, test_crop_width=args.test_crop_width,
                              left_img="1024_irL_real_1080.png", right_img="1024_irR_real_1080.png", args=args)
