@@ -232,7 +232,7 @@ def main():
 
                 feature_fake_sim = [fakeSim[:,i,:,:] for i in range(1)]
 
-                outputs_1, outputs_2, outputs_3 = c_gan.psm_outputs
+                outputs_1, outputs_2, outputs_3 = c_gan.psm_outputs0, c_gan.psm_outputs1, c_gan.psm_outputs2
                 
                 disp_ests = [outputs_1, outputs_2, outputs_3]
                 image_outputs = {"imgSim": simsample['left'], "imgReal_L": realsample['left'], "imgReal_R": realsample['right'], "Dis_gt": realsample['disparity'], \
