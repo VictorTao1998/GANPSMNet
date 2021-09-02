@@ -28,7 +28,6 @@ class MESSYDataset(Dataset):
 
 
         if self.training:
-            assert self.disp_filenames_L is not None
             assert self.disp_filenames_R is not None
 
     def load_path(self, list_filename):
