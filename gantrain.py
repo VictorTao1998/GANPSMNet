@@ -66,7 +66,7 @@ parser.add_argument('--lrepochs', type=str, required=True, help='the epochs to d
 
 parser.add_argument('--logdir', required=True, help='the directory to save logs and checkpoints')
 
-parser.add_argument('--seed', type=int, default=1, metavar='S', help='random seed (default: 1)')
+#parser.add_argument('--seed', type=int, default=1, metavar='S', help='random seed (default: 1)')
 
 parser.add_argument('--summary_freq', type=int, default=50, help='the frequency of saving summary')
 parser.add_argument('--test_summary_freq', type=int, default=50, help='the frequency of saving summary')
