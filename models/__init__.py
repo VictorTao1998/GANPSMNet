@@ -34,7 +34,7 @@ def get_option_setter(model_name):
     return model_class.modify_commandline_options
 
 
-def create_model(opt, model):
+def create_model(opt, pmodel):
     """Create a model given the option.
 
     This function warps the class CustomDatasetDataLoader.
@@ -45,6 +45,6 @@ def create_model(opt, model):
         >>> model = create_model(opt)
     """
     model = find_model_using_name(opt.model)
-    instance = model(opt, model)
+    instance = model(opt, pmodel)
     print("model [%s] was created" % type(instance).__name__)
     return instance
