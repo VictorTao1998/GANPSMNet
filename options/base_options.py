@@ -109,7 +109,7 @@ class BaseOptions():
         parser.add_argument('--test_crop_width', type=int, required=True, help="crop width")
 
 
-parser.add_argument('--ground', action='store_true', help='include ground pixel')
+        parser.add_argument('--ground', action='store_true', help='include ground pixel')
         self.initialized = True
         return parser
 
