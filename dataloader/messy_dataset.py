@@ -9,7 +9,7 @@ import pickle
 from datasets.warp_ops import *
 import torch
 import torchvision.transforms as transforms
-from datasets.warp_ops import *
+from dataloader.warp_ops import *
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 class MESSYDataset(Dataset):
