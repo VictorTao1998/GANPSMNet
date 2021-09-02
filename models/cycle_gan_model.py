@@ -126,14 +126,14 @@ class CycleGANModel(BaseModel):
 
     def forward(self):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
-        self.fake_B_L = self.netG_A(self.realfeaL)  # G_A(A)
+        self.fake_B_L = self.netG_A(self.real_A_L)  # G_A(A)
         self.rec_A_L = self.netG_B(self.fake_B_L)   # G_B(G_A(A))
-        self.fake_A_L = self.netG_B(self.simfeaL)  # G_B(B)
+        self.fake_A_L = self.netG_B(self.sim_A_L)  # G_B(B)
         self.rec_B_L = self.netG_A(self.fake_A_L)   # G_A(G_B(B))
 
-        self.fake_B_R = self.netG_A(self.realfeaR)  # G_A(A)
+        self.fake_B_R = self.netG_A(self.real_A_R)  # G_A(A)
         self.rec_A_R = self.netG_B(self.fake_B_R)   # G_B(G_A(A))
-        self.fake_A_R = self.netG_B(self.simfeaR)  # G_B(B)
+        self.fake_A_R = self.netG_B(self.sim_A_R)  # G_B(B)
         self.rec_B_R = self.netG_A(self.fake_A_R)   # G_A(G_B(B))
 
         #self.psm.module.set_gan_train(self.fake_B_L, self.fake_B_R)
@@ -169,20 +169,20 @@ class CycleGANModel(BaseModel):
     def backward_D_A(self):
         """Calculate GAN loss for discriminator D_A"""
         fake_B_L = self.fake_B_L
-        self.loss_D_A_L = self.backward_D_basic(self.netD_A, self.simfeaL, fake_B_L)
+        self.loss_D_A_L = self.backward_D_basic(self.netD_A, self.sim_A_L, fake_B_L)
 
         fake_B_R = self.fake_B_R
-        self.loss_D_A_R = self.backward_D_basic(self.netD_A, self.simfeaR, fake_B_R)
+        self.loss_D_A_R = self.backward_D_basic(self.netD_A, self.sim_A_R, fake_B_R)
 
         self.loss_D_A = (self.loss_D_A_L + self.loss_D_A_R) * 0.5
 
     def backward_D_B(self):
         """Calculate GAN loss for discriminator D_B"""
         fake_A_L = self.fake_A_L
-        self.loss_D_B_L = self.backward_D_basic(self.netD_B, self.realfeaL, fake_A_L)
+        self.loss_D_B_L = self.backward_D_basic(self.netD_B, self.real_A_L, fake_A_L)
 
         fake_A_R = self.fake_A_R
-        self.loss_D_B_R = self.backward_D_basic(self.netD_B, self.realfeaR, fake_A_R)
+        self.loss_D_B_R = self.backward_D_basic(self.netD_B, self.real_A_R, fake_A_R)
 
         self.loss_D_B = (self.loss_D_B_L + self.loss_D_B_R) * 0.5
 
@@ -194,18 +194,18 @@ class CycleGANModel(BaseModel):
         # Identity loss
         if lambda_idt > 0:
             # G_A should be identity if real_B is fed: ||G_A(B) - B||
-            self.idt_A_L = self.netG_A(self.simfeaL)
-            self.loss_idt_A_L = self.criterionIdt(self.idt_A_L, self.simfeaL) * lambda_B * lambda_idt
+            self.idt_A_L = self.netG_A(self.sim_A_L)
+            self.loss_idt_A_L = self.criterionIdt(self.idt_A_L, self.sim_A_L) * lambda_B * lambda_idt
             # G_B should be identity if real_A is fed: ||G_B(A) - A||
-            self.idt_B_L = self.netG_B(self.realfeaL)
-            self.loss_idt_B_L = self.criterionIdt(self.idt_B_L, self.realfeaL) * lambda_A * lambda_idt
+            self.idt_B_L = self.netG_B(self.real_A_L)
+            self.loss_idt_B_L = self.criterionIdt(self.idt_B_L, self.real_A_L) * lambda_A * lambda_idt
 
             # G_A should be identity if real_B is fed: ||G_A(B) - B||
-            self.idt_A_R = self.netG_A(self.simfeaR)
-            self.loss_idt_A_R = self.criterionIdt(self.idt_A_R, self.simfeaR) * lambda_B * lambda_idt
+            self.idt_A_R = self.netG_A(self.sim_A_R)
+            self.loss_idt_A_R = self.criterionIdt(self.idt_A_R, self.sim_A_R) * lambda_B * lambda_idt
             # G_B should be identity if real_A is fed: ||G_B(A) - A||
-            self.idt_B_R = self.netG_B(self.realfeaR)
-            self.loss_idt_B_R = self.criterionIdt(self.idt_B_R, self.realfeaR) * lambda_A * lambda_idt
+            self.idt_B_R = self.netG_B(self.real_A_R)
+            self.loss_idt_B_R = self.criterionIdt(self.idt_B_R, self.real_A_R) * lambda_A * lambda_idt
         else:
             self.loss_idt_A_L = 0
             self.loss_idt_B_L = 0
@@ -223,14 +223,14 @@ class CycleGANModel(BaseModel):
         self.loss_G_B_R = self.criterionGAN(self.netD_B(self.fake_A_R), True)
 
         # Forward cycle loss || G_B(G_A(A)) - A||
-        self.loss_cycle_A_L = self.criterionCycle(self.rec_A_L, self.realfeaL) * lambda_A
+        self.loss_cycle_A_L = self.criterionCycle(self.rec_A_L, self.real_A_L) * lambda_A
         # Backward cycle loss || G_A(G_B(B)) - B||
-        self.loss_cycle_B_L = self.criterionCycle(self.rec_B_L, self.simfeaL) * lambda_B
+        self.loss_cycle_B_L = self.criterionCycle(self.rec_B_L, self.sim_A_L) * lambda_B
 
         # Forward cycle loss || G_B(G_A(A)) - A||
-        self.loss_cycle_A_R = self.criterionCycle(self.rec_A_R, self.realfeaR) * lambda_A
+        self.loss_cycle_A_R = self.criterionCycle(self.rec_A_R, self.real_A_R) * lambda_A
         # Backward cycle loss || G_A(G_B(B)) - B||
-        self.loss_cycle_B_R = self.criterionCycle(self.rec_B_R, self.simfeaR) * lambda_B
+        self.loss_cycle_B_R = self.criterionCycle(self.rec_B_R, self.sim_A_R) * lambda_B
 
         self.loss_psm = 0.5*F.smooth_l1_loss(self.psm_outputs[0][mask], self.real_gt[mask], size_average=True) + \
                     0.7*F.smooth_l1_loss(self.psm_outputs[1][mask], self.real_gt[mask], size_average=True) + \
