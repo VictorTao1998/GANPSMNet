@@ -190,7 +190,7 @@ model.module.feature_extraction.gan_train = True
 c_gan = create_model(opt, model)
 c_gan.setup(opt)
 
-
+start_epoch = 0
 
 def main():
     avg_test_scalars = None
