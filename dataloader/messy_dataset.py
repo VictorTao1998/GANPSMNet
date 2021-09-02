@@ -150,7 +150,7 @@ class MESSYDataset(Dataset):
 
             #color_jitter = transforms.ColorJitter(brightness=0.5, contrast=0.5, saturation=0, hue=0)
             #print(str((float(e) for e in self.args.var.split(",") if e)))
-            processed = get_transform_test(0., 0., 0, (1,2))
+            processed = get_transform_test()
             left_img = processed(left_img)
             right_img = processed(right_img)
 
