@@ -19,7 +19,7 @@ class MESSYDataset(Dataset):
         self.left_img = left_img
         self.right_img = right_img
         self.args = args
-        self.left_filenames, self.right_filenames, self.disp_filenames_L, self.disp_filenames_R, self.meta_filenames, self.label = self.load_path(list_filename)
+        self.left_filenames, self.right_filenames, self.disp_filenames_L, self.disp_filenames_R, self.meta_filenames = self.load_path(list_filename)
 
         self.crop_width = crop_width
         self.crop_height = crop_height
@@ -37,12 +37,11 @@ class MESSYDataset(Dataset):
         left_images = [os.path.join(x,self.left_img) for x in lines]
         right_images = [os.path.join(x,self.right_img) for x in lines]
 
-        label_images = [os.path.join(x,"irL_label_image.png") for x in lines]
         disp_images_L = [os.path.join(x,"depthL.png") for x in lines]
         disp_images_R = [os.path.join(x,"depthR.png") for x in lines]
         #disp_images = [os.path.join(x,"depth.png") for x in lines]
         meta = [os.path.join(x,"meta.pkl") for x in lines]
-        return left_images, right_images, disp_images_L, disp_images_R, meta, label_images
+        return left_images, right_images, disp_images_L, disp_images_R, meta
 
 
     def load_pickle(self, filename):
@@ -55,14 +54,6 @@ class MESSYDataset(Dataset):
         if half:
             img = img.resize((int(img.size[0]/2),int(img.size[1]/2)))
         return img
-
-    def load_label(self, filename, metafile, half):
-        img = Image.open(filename).convert('I;16')
-        meta = self.load_pickle(metafile)
-        if half:
-            img = img.resize((int(img.size[0]/2),int(img.size[1]/2)), resample=Image.NEAREST)
-
-        return img, meta['object_ids']
 
     def load_disp(self, filename_L, filename_R, metafile):
         img_L = Image.open(filename_L)
@@ -114,7 +105,7 @@ class MESSYDataset(Dataset):
         #print(self.datapath, " ", self.left_filenames[index])
         left_img = self.load_image(os.path.join(self.datapath, self.left_filenames[index]), self.left_img == "1024_irL_real_1080.png")
         right_img = self.load_image(os.path.join(self.datapath, self.right_filenames[index]), self.left_img == "1024_irL_real_1080.png")
-        label, obj_ids = self.load_label(os.path.join(self.args.test_real_datapath, self.label[index]), os.path.join(self.datapath, self.meta_filenames[index]), True)
+
 
 
 
@@ -173,13 +164,10 @@ class MESSYDataset(Dataset):
             # normalize
             ##color_jitter = transforms.ColorJitter(brightness=0, contrast=0, saturation=0)
             processed = get_transform_test()
-            processedimg = get_transform_img()
             left_img = processed(left_img).numpy()
             right_img = processed(right_img).numpy()
             #print("before", np.array(label))
 
-
-            label = processedimg(label).numpy()
 
 
             #print("after", label)
