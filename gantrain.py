@@ -15,6 +15,8 @@ import time
 from tensorboardX import SummaryWriter
 from dataloader.messy_dataset import MESSYDataset
 
+from models import *
+
 from utils import *
 import gc
 from dataloader.warp_ops import *
