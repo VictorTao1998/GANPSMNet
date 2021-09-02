@@ -19,18 +19,12 @@ python /cephfs/jianyu/GANPSMNet/gantrain.py \
     --test_crop_height 540 \
     --using_ns \
     --ns_size 3 \
-    --model stackhourglass \
+    --cmodel stackhourglass \
     --logdir "/cephfs/jianyu/eval/psm_gan_train"  \
-    --batch_size 4 \
+    --cbatch_size 4 \
     --test_batch_size 2 \
     --summary_freq 500 \
     --test_summary_freq 500 \
-    --brightness 0.5 \
-    --contrast 0.5 \
-    --use_blur \
-    --diff_jitter \
-    --kernel 3 \
-    --var "0.1,2.0" \
     --loadmodel "/cephfs/jianyu/eval/psm_eval/checkpoint_0.tar"
 
 
