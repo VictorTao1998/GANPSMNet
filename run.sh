@@ -21,8 +21,8 @@ python /cephfs/jianyu/GANPSMNet/gantrain.py \
     --ns_size 3 \
     --cmodel stackhourglass \
     --logdir "/cephfs/jianyu/eval/psm_gan_train"  \
-    --cbatch_size 4 \
-    --test_batch_size 2 \
+    --cbatch_size 1 \
+    --test_batch_size 1 \
     --summary_freq 500 \
     --test_summary_freq 500 \
     --loadmodel "/cephfs/jianyu/eval/psm_eval/checkpoint_0.tar"
