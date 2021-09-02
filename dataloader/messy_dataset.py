@@ -108,7 +108,7 @@ class MESSYDataset(Dataset):
 
 
 
-        if self.disp_filenames_L:  # has disparity ground truth
+        if self.disp_filenames_R:  # has disparity ground truth
             path = None
             if self.left_img == "0128_irL_denoised_half.png":
                 path = self.datapath
