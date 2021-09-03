@@ -208,8 +208,6 @@ def main():
         # training
         for batch_idx, simsample in enumerate(TrainImgLoader):
             print(batch_idx)
-            if batch_idx > 5:
-                break
             realsample = next(iter(RealImgLoader))
             global_step = len(TrainImgLoader) * epoch_idx + batch_idx
             start_time = time.time()
@@ -233,12 +231,12 @@ def main():
             
 
             if batch_idx % 50 == 0:
-                feature_outputs_sim = [simfeaL[:,i,:,:] for i in range(1)]
-                feature_outputs_real = [realfeaL[:,i,:,:] for i in range(1)]
+                feature_outputs_sim = [simfeaL[:,i,:,:] for i in range(3)]
+                feature_outputs_real = [realfeaL[:,i,:,:] for i in range(3)]
 
                 fakeSim = c_gan.fake_B_L
 
-                feature_fake_sim = [fakeSim[:,i,:,:] for i in range(1)]
+                feature_fake_sim = [fakeSim[:,i,:,:] for i in range(3)]
 
                 outputs_1, outputs_2, outputs_3 = c_gan.psm_outputs0, c_gan.psm_outputs1, c_gan.psm_outputs2
                 
