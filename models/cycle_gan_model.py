@@ -265,8 +265,8 @@ class CycleGANModel(BaseModel):
 
     def save_psm(self, epoch_idx):
         savefilename = self.opt.logdir+'/checkpoint_'+str(epoch_idx)+'.tar'
-            torch.save({
-                'epoch': epoch_idx,
-                'state_dict': self.psm.state_dict(),
-                'train_loss': 0,
-            }, savefilename)
+        torch.save({
+            'epoch': epoch_idx,
+            'state_dict': self.psm.state_dict(),
+            'train_loss': 0,
+        }, savefilename)
