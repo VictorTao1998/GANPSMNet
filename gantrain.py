@@ -121,7 +121,7 @@ test_real_dataset = MESSYDataset(args.test_real_datapath, args.depthpath, args.r
 real_sampler = torch.utils.data.RandomSampler(test_real_dataset)
 
 TrainImgLoader = torch.utils.data.DataLoader(train_dataset, batch_size=args.cbatch_size,
-                                                 shuffle=True, num_workers=8, drop_last=True)
+                                                 shuffle=True, num_workers=4, drop_last=True)
 
 TestImgLoader = torch.utils.data.DataLoader(test_dataset, batch_size=args.test_batch_size,
                                             shuffle=False, num_workers=4, drop_last=False)
