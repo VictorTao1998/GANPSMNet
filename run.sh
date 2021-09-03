@@ -13,8 +13,8 @@ python /cephfs/jianyu/GANPSMNet/gantrain.py \
     --depthpath /cephfs/datasets/iccv_pnp/messy-table-dataset/real_v9/training \
     --epochs 1 \
     --lrepochs "200:10" \
-    --crop_width 256  \
-    --crop_height 128 \
+    --crop_width 512  \
+    --crop_height 256 \
     --test_crop_width 960  \
     --test_crop_height 540 \
     --using_ns \
