@@ -262,12 +262,7 @@ def main():
             c_gan.save_networks('latest')
             c_gan.save_networks(epoch_idx)
 
-            savefilename = args.logdir+'/checkpoint_'+str(epoch_idx)+'.tar'
-            torch.save({
-                'epoch': epoch_idx,
-                'state_dict': model.state_dict(),
-                'train_loss': 0,
-            }, savefilename)
+            c_gan.save_psm(epoch_idx)
 
         gc.collect()
 

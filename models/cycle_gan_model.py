@@ -78,6 +78,7 @@ class CycleGANModel(BaseModel):
 
         self.psm = model
         self.psm.train()
+        self.opt = opt
 
         #self.dummy_input = torch.zeros([1,3,256,512])
 
@@ -261,3 +262,11 @@ class CycleGANModel(BaseModel):
         self.backward_D_A()      # calculate gradients for D_A
         self.backward_D_B()      # calculate graidents for D_B
         self.optimizer_D.step()  # update D_A and D_B's weights
+
+    def save_psm(self, epoch_idx):
+        savefilename = self.opt.logdir+'/checkpoint_'+str(epoch_idx)+'.tar'
+            torch.save({
+                'epoch': epoch_idx,
+                'state_dict': self.psm.state_dict(),
+                'train_loss': 0,
+            }, savefilename)
