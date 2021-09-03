@@ -208,6 +208,8 @@ def main():
         # training
         for batch_idx, simsample in enumerate(TrainImgLoader):
             print(batch_idx)
+            if batch_idx > 5:
+                break
             realsample = next(iter(RealImgLoader))
             global_step = len(TrainImgLoader) * epoch_idx + batch_idx
             start_time = time.time()
