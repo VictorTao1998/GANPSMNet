@@ -129,6 +129,8 @@ TestImgLoader = torch.utils.data.DataLoader(test_dataset, batch_size=args.test_b
 RealImgLoader = torch.utils.data.DataLoader(test_real_dataset, batch_size=args.cbatch_size, sampler=real_sampler,
                                                 shuffle=False, num_workers=4, drop_last=False)
 
+logger = SummaryWriter(args.logdir)
+
 #TrainImgLoader = torch.utils.data.DataLoader(
 #         DA.myImageFloder(all_left_img,all_right_img,all_left_disp, True), 
 #         batch_size= 12, shuffle= True, num_workers= 8, drop_last=False)
