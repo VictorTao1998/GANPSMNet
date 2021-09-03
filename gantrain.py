@@ -214,7 +214,8 @@ def main():
             #real_gt = real_gt.reshape((args.cbatch_size,1,args.crop_height,args.crop_width))
 
             disp_gt_t = real_gt.reshape((args.cbatch_size,1,args.crop_height,args.crop_width))
-            disparity_L_from_R = apply_disparity_cu(disp_gt_t, disp_gt_t.int())
+            real_gt = apply_disparity_cu(disp_gt_t, disp_gt_t.int())
+
             #disp_gt = disparity_L_from_R.reshape((1,2,256,512))
             #real_gt = disparity_L_from_R.reshape((args.cbatch_size,args.crop_height,args.crop_width))
 
