@@ -211,6 +211,7 @@ def main():
             #loss, scalar_outputs, image_outputs = train_sample(sample, batch_idx, compute_metrics=do_summary)
             simfeaL, simfeaR, sim_gt = feaex(simsample['left'].cuda()), feaex(simsample['right'].cuda()), simsample['disparity'].cuda()
             realfeaL, realfeaR, real_gt = feaex(realsample['left'].cuda()), feaex(realsample['right'].cuda()), realsample['disparity'].cuda()
+            real_gt = real_gt.reshape((args.cbatch_size,1,args.crop_height,args.crop_width))
 
             disp_gt_t = real_gt.reshape((args.cbatch_size,1,args.crop_height,args.crop_width))
             disparity_L_from_R = apply_disparity_cu(disp_gt_t, disp_gt_t.int())
