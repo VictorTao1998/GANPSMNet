@@ -141,7 +141,6 @@ class MESSYDataset(Dataset):
 
             disparity_R = disparity_R[y1:y1 + crop_h, x1:x1 + crop_w]
 
-            print('right')
             # to tensor, normalize
 
             #color_jitter = transforms.ColorJitter(brightness=0.5, contrast=0.5, saturation=0, hue=0)
